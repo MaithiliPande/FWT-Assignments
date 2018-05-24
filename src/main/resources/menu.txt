@@ -1,0 +1,10 @@
+1. Add Screen
+2. Add movie to screen
+3. Design seating arrangements
+4. Add shows to movie
+5. Show Availability
+6. Book ticket
+7. Cancel booking
+8. Show Reports 
+
+Enter your choice:
