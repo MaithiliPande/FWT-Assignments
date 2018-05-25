@@ -4,13 +4,13 @@ public class Movie {
 	private Integer id;
 	private String title;
 	private String production;
-	private String actors;
-	public Movie(Integer id, String title, String production, String actors) {
+	private String actor;
+	public Movie(Integer id, String title, String production, String actor) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.production = production;
-		this.actors = actors;
+		this.actor = actor;
 	}
 	public Integer getId() {
 		return id;
@@ -30,11 +30,11 @@ public class Movie {
 	public void setProduction(String production) {
 		this.production = production;
 	}
-	public String getActors() {
-		return actors;
+	public String getActor() {
+		return actor;
 	}
-	public void setActors(String actors) {
-		this.actors = actors;
+	public void setActor(String actor) {
+		this.actor = actor;
 	}
 	
 	

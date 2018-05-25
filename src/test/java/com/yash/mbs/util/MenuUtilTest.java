@@ -6,26 +6,26 @@ import org.junit.Test;
 import com.yash.mbs.exception.EmptyFileException;
 import com.yash.mbs.exception.FileDoesNotExistException;
 
-public class FileReaderUtilTest {
+public class MenuUtilTest {
 	
-	FileReaderUtil fileReaderUtil;
+	MenuUtil menuUtil;
 	@Before
 	public void setUp() {
-		fileReaderUtil = new FileReaderUtil();
+		menuUtil = new MenuUtil();
 	}
 	@Test(expected=FileDoesNotExistException.class)
 	public void shouldThrowFileDoesNotExistExceptionWhenFileDoesNotExist() {
-		fileReaderUtil.findFile("testing.txt");
+		menuUtil.findFile("testing.txt");
 	}
 	
 	@Test(expected=EmptyFileException.class)
 	public void shouldThrowEmptyFileExceptionWhenFileIsEmpty() {
-		fileReaderUtil.readFile("test.txt");
+		menuUtil.readFile("test.txt");
 	}
 	
 	@Test
 	public void testReadFileIfFileIsNotEmpty() {
-		fileReaderUtil.readFile("menu.txt");
+		menuUtil.readFile("menu.txt");
 	}
 
 }

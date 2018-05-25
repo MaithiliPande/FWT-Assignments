@@ -5,17 +5,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import com.yash.mbs.exception.EmptyFileException;
 import com.yash.mbs.exception.FileDoesNotExistException;
 
-public class FileReaderUtil {
+public class MenuUtil {
+	
+	Logger logger = Logger.getLogger(MenuUtil.class);
 
 	public File findFile(String filePath) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		try {
 			File file = new File(classLoader.getResource(filePath).getFile());
+			logger.info("file found");
 			return file;
 		}catch (Exception exception) {
+			logger.error("file does not exist");
 			throw new FileDoesNotExistException("File does not exist");
 		}
 	}
@@ -24,6 +30,7 @@ public class FileReaderUtil {
 		BufferedReader bufferedReader = null;
 				File file = findFile(fileName);
 				if(file.length()==0) {
+					logger.error("file is empty");
 					throw new EmptyFileException("File is empty");
 				}else {
 					try {
@@ -41,5 +48,6 @@ public class FileReaderUtil {
 						e.printStackTrace();
 					}
 				}
+				logger.info("file is read");
 	}
 }

@@ -8,13 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.yash.mbs.dao.ScreenDAO;
+import com.yash.mbs.daoimpl.ScreenDAOImpl;
+import com.yash.mbs.domain.Movie;
 import com.yash.mbs.domain.Screen;
 import com.yash.mbs.exception.IncorrectInputException;
-import com.yash.mbs.exception.NullScreenObjectException;
+import com.yash.mbs.exception.NullObjectException;
 import com.yash.mbs.exception.ScreenAlreadyExistsException;
+import com.yash.mbs.exception.ScreenDoesNotExistException;
 import com.yash.mbs.exception.ScreenLimitExceedException;
 import com.yash.mbs.service.ScreenService;
-import com.yash.mbs.serviceimpl.ScreenServiceImpl;
 
 public class ScreenServiceImplTest {
 	
@@ -27,7 +29,7 @@ public class ScreenServiceImplTest {
 		screenService = new ScreenServiceImpl(screenDAO);
 	}
 	
-	@Test(expected=NullScreenObjectException.class)
+	@Test(expected=NullObjectException.class)
 	public void addScreen_ScreenObjectEmpty_ShouldThrowNullScreenObjectException() {
 		screenService.addScreen(null);
 	}
@@ -60,5 +62,32 @@ public class ScreenServiceImplTest {
 		when(screenDAO.getScreenListSize()).thenReturn(4);
 		screenService.addScreen(screen);
 	}
-
+	
+	@Test(expected=NullObjectException.class)
+	public void addMovieToScreen_MovieObjectIsNull_ShouldThrowNullObjectException() {
+		screenService.addMovieToScreen(null,null);
+	}
+	
+	@Test(expected=IncorrectInputException.class)
+	public void addMovieToScreen_IncorrectInputGiven_ShouldThrowIncorrectInputException() {
+		screenService.addMovieToScreen(null,new Movie(-1, null, "", null));
+	}
+	
+	@Test(expected=ScreenDoesNotExistException.class)
+	public void addMovieToScreen_IfScreenDoesNotExist_ShouldThrowScreenDoesNotExistException() {
+		Screen screen = new Screen(4,"Screen4");
+		Movie movie = new Movie(1, "Razi", "Dharma Production", "Alia Bhatt");
+		screenService.addMovieToScreen(screen.getName(),movie);
+	}
+	
+	@Test
+	public void testAddMovieToScreen() {
+		Screen screen = new Screen(1, "Screen2");
+		screenDAO=new ScreenDAOImpl();
+		screenService = new ScreenServiceImpl(screenDAO);
+		screenService.addScreen(screen);
+		Movie movie = new Movie(1, "Razi", "Dharma Production", "Alia Bhatt");
+		screenService.addMovieToScreen("Screen2", movie);
+	}
+	
 }
