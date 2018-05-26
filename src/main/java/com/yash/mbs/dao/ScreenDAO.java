@@ -8,12 +8,11 @@ public interface ScreenDAO {
 
 	boolean insert(Screen screen);
 
-	String getScreenName(Screen screen);
-
 	int getScreenListSize();
 
 	List<Screen> listScreens();
 
 	Screen updateScreenList(Screen validScreenObject);
 
+	Screen getScreenByName(String string);
 }

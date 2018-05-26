@@ -17,6 +17,8 @@ public class Screen {
 		this.id = id;
 		this.name = name;
 	}
+	public Screen() {
+	}
 	public Integer getId() {
 		return id;
 	}

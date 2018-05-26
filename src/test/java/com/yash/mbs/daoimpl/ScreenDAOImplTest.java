@@ -30,6 +30,10 @@ public class ScreenDAOImplTest {
 		assertEquals(true, actualResult);
 	}
 	
+	@Test
+	public void checkScreenListSize_IfScreenListIsNull_ShouldReturnZero() {
+		assertEquals(0, screenDAO.getScreenListSize());
+	}
 	
 	
 	

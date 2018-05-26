@@ -18,7 +18,6 @@ public class MenuUtil {
 		ClassLoader classLoader = getClass().getClassLoader();
 		try {
 			File file = new File(classLoader.getResource(filePath).getFile());
-			logger.info("file found");
 			return file;
 		}catch (Exception exception) {
 			logger.error("file does not exist");
@@ -36,6 +35,7 @@ public class MenuUtil {
 					try {
 						bufferedReader = new BufferedReader(new FileReader(file));
 					} catch (Exception exception) {
+						logger.error("file does not exist");
 						throw new FileDoesNotExistException("File does not exist");
 					}
 					String text;
@@ -48,6 +48,5 @@ public class MenuUtil {
 						e.printStackTrace();
 					}
 				}
-				logger.info("file is read");
 	}
 }

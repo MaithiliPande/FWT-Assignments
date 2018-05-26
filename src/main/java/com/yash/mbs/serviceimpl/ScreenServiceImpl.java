@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.yash.mbs.dao.ScreenDAO;
+import com.yash.mbs.daoimpl.ScreenDAOImpl;
 import com.yash.mbs.domain.Movie;
 import com.yash.mbs.domain.Screen;
 import com.yash.mbs.exception.IncorrectInputException;
@@ -23,6 +24,11 @@ public class ScreenServiceImpl implements ScreenService {
 		this.screenDAO = screenDAO;
 	}
 	
+	
+	public ScreenServiceImpl() {
+		screenDAO = new ScreenDAOImpl();
+	}
+
 	public boolean addScreen(Screen screen) {
 		checkIfScreenIsNull(screen);
 		checkForCorrectInput(screen);
@@ -31,8 +37,8 @@ public class ScreenServiceImpl implements ScreenService {
 		return screenDAO.insert(screen);
 	}
 
-	public void checkIfScreenExists(Screen screen) {
-		if (screenDAO.getScreenName(screen) == "Screen1") {
+	private void checkIfScreenExists(Screen screen) {
+		if (screenDAO.listScreens().contains(screen)) {
 			logger.error("This screen already exists");
 			throw new ScreenAlreadyExistsException("This screen already exists");
 		}
@@ -70,11 +76,10 @@ public class ScreenServiceImpl implements ScreenService {
 			logger.error("incorrect input provided");
 			throw new IncorrectInputException("Incorrect input given");
 		}
-		Screen validScreenObject = checkScreenExistsInList(screenName);
+		Screen validScreenObject = checkScreenAvailable(screenName);
 		if (validScreenObject != null) {
 			validScreenObject.setMovie(movie);
-			Screen screen = screenDAO.updateScreenList(validScreenObject);
-			screenDAO.insert(screen);
+			screenDAO.updateScreenList(validScreenObject);
 			logger.info("screen object updated");
 		} else {
 			throw new ScreenDoesNotExistException("Screen does not exist");
@@ -82,7 +87,7 @@ public class ScreenServiceImpl implements ScreenService {
 		return false;
 	}
 
-	private Screen checkScreenExistsInList(String screenName) {
+	private Screen checkScreenAvailable(String screenName) {
 		List<Screen> screenList = screenDAO.listScreens();
 		for (Screen screenObj : screenList) {
 			if (screenName.equalsIgnoreCase(screenObj.getName())) {

@@ -30,27 +30,36 @@ public class ScreenDAOImpl implements ScreenDAO {
 		}
 	}
 
-	public String getScreenName(Screen screen) {
-		return screen.getName();
-	}
-
 	public int getScreenListSize() {
-		return listScreens().size();
+		return screenList.size();
 	}
 
 	public List<Screen> listScreens() {
 		return screenList;
 	}
-
+	
 	public Screen updateScreenList(Screen validScreenObject) {
+		System.out.println(screenList);
 		for (Screen screen : screenList) {
 			if(validScreenObject.getName().equalsIgnoreCase(screen.getName())) {
 				screenList.set(screenList.indexOf(screen), validScreenObject);
+				JsonUtil jsonUtil = new JsonUtil();
+				String screenJson = jsonUtil.convertToJson(screenList);
+				jsonUtil.writeToJsonFile(screenJson);
 				logger.info("screen list updated");
 				break;
 			}
 		}
 		return validScreenObject;
+	}
+
+	public Screen getScreenByName(String screenName) {
+		for (Screen screen : screenList) {
+			if(screenName.equalsIgnoreCase(screen.getName())) {
+				return screen;
+			}
+		}
+		return null;
 	}
 
 	

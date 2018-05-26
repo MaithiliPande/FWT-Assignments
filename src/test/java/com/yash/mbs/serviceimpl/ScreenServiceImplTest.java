@@ -48,10 +48,12 @@ public class ScreenServiceImplTest {
 	}
 
 	@Test(expected=ScreenAlreadyExistsException.class)
-	public void addScreen_ScreenNameIfSame_ShouldThrowScreenAlreadyExistsException() {
+	public void addScreen_ScreenIfSame_ShouldThrowScreenAlreadyExistsException() {
 		Screen screen = new Screen(1, "Screen1");
 		when(screenDAO.insert(screen)).thenReturn(true);
-		when(screenDAO.getScreenName(screen)).thenReturn("Screen1");
+		when(screenDAO.getScreenByName("Screen1")).thenReturn(screen);
+		when(screenDAO.insert(screen))
+				.thenThrow(new ScreenAlreadyExistsException("Screen already exists"));
 		screenService.addScreen(screen);
 	}
 	

@@ -12,6 +12,9 @@ public class Movie {
 		this.production = production;
 		this.actor = actor;
 	}
+	public Movie() {
+	}
+	
 	public Integer getId() {
 		return id;
 	}
