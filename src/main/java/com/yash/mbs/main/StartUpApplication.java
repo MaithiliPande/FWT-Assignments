@@ -49,6 +49,7 @@ public class StartUpApplication {
 				String actor = scanner.nextLine();
 				movie.setActor(actor);
 				screenService.addMovieToScreen(screenName, movie);
+				break;
 			default:
 				break;
 			}

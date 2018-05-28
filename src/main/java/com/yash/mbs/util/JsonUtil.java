@@ -30,7 +30,7 @@ public class JsonUtil {
 		boolean isfileWritten = false;
 		FileWriter fileWriter;
 		try {
-			fileWriter = new FileWriter("src/main/resources/screen.json",true);
+			fileWriter = new FileWriter("src/main/resources/screen.json");
 			fileWriter.write(screenJson);
 			logger.info("screen json object written to file");
 			fileWriter.close();

@@ -39,7 +39,6 @@ public class ScreenDAOImpl implements ScreenDAO {
 	}
 	
 	public Screen updateScreenList(Screen validScreenObject) {
-		System.out.println(screenList);
 		for (Screen screen : screenList) {
 			if(validScreenObject.getName().equalsIgnoreCase(screen.getName())) {
 				screenList.set(screenList.indexOf(screen), validScreenObject);
